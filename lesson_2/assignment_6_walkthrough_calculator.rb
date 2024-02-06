@@ -1,11 +1,11 @@
 def calculator
-    puts "Enter the first number: "
+    puts "Enter the first number >> "
     num1_str = gets.chomp
     num1 = num1_str.to_i
-    puts "Enter the second number: "
+    puts "Enter the second number >> "
     num2_str = gets.chomp
     num2 = num2_str.to_i
-    puts "Enter the operation: add, subtract, multiply, or divide"
+    puts "Enter the operation (add, subtract, multiply, or divide) >> "
     operator = gets.chomp
     case
     when operator == "add"
