@@ -4,7 +4,7 @@
 
 def length_per_word(str_sentence)
     split_obj = str_sentence.split(" ")
-    final_array = split_obj.map {|obj| obj.length}
+    split_obj.map {|obj| obj.length}
 end
 
 p length_per_word("I love programming!")
