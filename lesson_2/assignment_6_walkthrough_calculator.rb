@@ -3,13 +3,12 @@
 
 def calculator
     Kernel.puts("Enter the first number >> ") 
-    num1_str = Kernel.gets().chomp
-    num1 = num1_str.to_i
+    num1 = Kernel.gets().chomp.to_i
     puts "Enter the second number >> "
-    num2_str = Kernel.gets().chomp
-    num2 = num2_str.to_i
+    num2 = Kernel.gets().chomp.to_i
     puts "Enter the operation (add, subtract, multiply, or divide) >> "
     operator = Kernel.gets().chomp
+    
     case
     when operator == "add"
         result = num1 + num2
