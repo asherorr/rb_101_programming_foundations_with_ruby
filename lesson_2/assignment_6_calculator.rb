@@ -9,7 +9,20 @@ def valid_number?(num)
 end
 
 
-prompt("Welcome to the Calculator!")
+prompt("Welcome to the Calculator! Enter your name: ")
+
+name = ''
+loop do
+  name = Kernel.gets().chomp()
+  
+  if name.empty?()
+    prompt("Make sure to use a valid name.")
+  else
+    break
+  end
+end
+
+puts "Hi #{name}!"
 
 loop do # main loop
   num1 = ''
@@ -36,17 +49,34 @@ loop do # main loop
     end
   end
   
-  prompt('Enter the operation (add, subtract, multiply, or divide):')
-  operator = Kernel.gets.chomp
+  operator_prompt = <<-MSG
+  What operation would you like to perform?
+  Add
+  Subtract
+  Multiply
+  Divide
+  MSG
+  
+  prompt(operator_prompt)
+  
+  operator = ''
+  loop do
+    operator = Kernel.gets().chomp()
+    if %w(Add Subtract Multiply Divide).include?(operator)
+      break
+    else
+      prompt("Must choose one of the options: Add, Subtract, Multiply, or Divide")
+    end
+  end
   
   result = case operator
-  when 'add'
+  when 'Add'
       num1 + num2
-  when 'subtract'
+  when 'Subtract'
       num1 - num2
-  when 'multiply'
+  when 'Multiply'
       num1 * num2
-  when 'divide'
+  when 'Divide'
       num1.to_f / num2
   end
   
