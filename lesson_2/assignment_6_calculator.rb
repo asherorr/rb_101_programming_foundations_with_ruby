@@ -8,8 +8,10 @@ def valid_number?(num)
   num.to_i() != 0
 end
 
-def calculator
-  prompt("Welcome to the Calculator!")
+
+prompt("Welcome to the Calculator!")
+
+loop do # main loop
   num1 = ''
   loop do
     prompt('Enter the first number: ')
@@ -36,7 +38,7 @@ def calculator
   
   prompt('Enter the operation (add, subtract, multiply, or divide):')
   operator = Kernel.gets.chomp
-
+  
   result = case operator
   when 'add'
       num1 + num2
@@ -47,7 +49,12 @@ def calculator
   when 'divide'
       num1.to_f / num2
   end
+  
   prompt("The result is #{result}.")
+  
+  prompt("Do you want to perform another calculation? Enter Y to calculate again.")
+  answer = Kernel.gets().chomp()
+  break unless answer.downcase.start_with?("y")
 end
 
-calculator
+prompt("Goodbye!")
