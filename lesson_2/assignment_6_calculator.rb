@@ -1,12 +1,16 @@
 # Use the Kernel.gets() method to retrieve user input, and use Kernel.puts() method to display output.
 # Remember that Kernel.gets() includes the newline, so you have to call chomp() to remove it: Kernel.gets().chomp().
+def prompt(message)
+  Kernel.puts("=> #{message}")
+end
 
 def calculator
-  Kernel.puts('Enter the first number >> ')
+  prompt("Welcome to the Calculator!")
+  prompt('Enter the first number >> ')
   num1 = Kernel.gets.chomp.to_i
-  puts 'Enter the second number >> '
+  prompt('Enter the second number >> ')
   num2 = Kernel.gets.chomp.to_i
-  puts 'Enter the operation (add, subtract, multiply, or divide) >> '
+  prompt('Enter the operation (add, subtract, multiply, or divide) >> ')
   operator = Kernel.gets.chomp
 
   case operator
@@ -19,7 +23,7 @@ def calculator
   when 'divide'
     result = (num1.to_f / num2)
   end
-  Kernel.puts(result)
+  prompt("The result is #{result}.")
 end
 
 calculator
