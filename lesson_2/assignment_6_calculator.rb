@@ -4,12 +4,36 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
+def valid_number?(num)
+  num.to_i() != 0
+end
+
 def calculator
   prompt("Welcome to the Calculator!")
-  prompt('Enter the first number: ')
-  num1 = Kernel.gets.chomp.to_i
-  prompt('Enter the second number: ')
-  num2 = Kernel.gets.chomp.to_i
+  num1 = ''
+  loop do
+    prompt('Enter the first number: ')
+    num1 = Kernel.gets.chop.to_i
+    
+    if valid_number?(num1)
+      break
+    else
+      prompt("That is not a valid number. Try again.")
+    end
+  end
+  
+  num2 = ''
+  loop do
+    prompt('Enter the second number: ')
+    num2 = Kernel.gets.chomp.to_i
+    
+    if valid_number?(num2)
+      break
+    else
+      prompt("That is not a valid number. Try again")
+    end
+  end
+  
   prompt('Enter the operation (add, subtract, multiply, or divide):')
   operator = Kernel.gets.chomp
 
