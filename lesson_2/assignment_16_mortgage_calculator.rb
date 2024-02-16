@@ -1,11 +1,3 @@
-# m = 230000 * (0.00500 / (1 - (1 + 0.00500)**(-360)))
-
-# puts m.to_i
-
-# def convert_apr_to_percent(n)
-#     self.to_f / n.to_f * 100.0
-# end
-
 def mortgage_calculator
   puts("What is the loan amount? Enter it with a currency symbol and commas (ex: $250,000)")
   loan_amount = gets.chomp
