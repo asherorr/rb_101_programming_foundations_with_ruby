@@ -5,11 +5,11 @@ end
 
 def ask_user_to_select_option
   loop do
-    puts "Select an option:\n
-    1 = Rock\n
-    2 = Paper\n
-    3 = Scissors\n
-    Enter a number: "
+    puts "Select an option: "
+    puts "1 = Rock"
+    puts "2 = Paper"
+    puts "3 = Scissors"
+    puts "\nEnter a number: "
     selection = gets.chomp.to_sym
     options = {"1": "Rock", "2": "Paper", "3": "Scissors"}
     if options.has_key?(selection)
@@ -20,7 +20,7 @@ def ask_user_to_select_option
     end
   end
 end
-  
+
 
 def computer_selects_option
   options = ["Rock", "Paper", "Scissors"]
@@ -29,7 +29,7 @@ end
 
 
 def show_computer_selection(selection)
-  puts "The computer chose #{selection}"
+  puts "The computer chose: #{selection}"
 end
 
 
@@ -44,6 +44,29 @@ def compare_user_and_computer_selection(user_selection, computer_selection)
   elsif user_selection == computer_selection
     puts "Draw!"
   else
-    puts "You lost!"
+    puts "You lost!".sleep(2)
   end
 end
+
+
+def prompt_user_to_play_again
+  puts "Would you like to play again? Enter Y for yes and N for no."
+  user_response = gets.chomp
+  if user_response.downcase == "y"
+    main
+  else
+    puts "Goodbye!"
+  end
+end
+    
+
+def main
+  welcome_message
+  users_selection = ask_user_to_select_option
+  computers_selection = computer_selects_option
+  show_computer_selection(computers_selection)
+  compare_user_and_computer_selection(users_selection, computers_selection)
+  prompt_user_to_play_again
+end
+
+main
