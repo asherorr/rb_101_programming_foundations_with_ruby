@@ -3,7 +3,7 @@ def welcome_message
 end
 
 
-def ask_user_to_select_option
+def return_user_choice
   loop do
     puts "Select an option: "
     puts "1 = Rock"
@@ -11,6 +11,7 @@ def ask_user_to_select_option
     puts "3 = Scissors"
     puts "\nEnter a number: "
     selection = gets.chomp.to_sym
+    
     options = {"1": "Rock", "2": "Paper", "3": "Scissors"}
     if options.has_key?(selection)
       puts "You selected: #{options[selection]}"
@@ -22,8 +23,8 @@ def ask_user_to_select_option
 end
 
 
-def computer_selects_option
-  options = ["Rock", "Paper", "Scissors"]
+def return_computer_choice
+  options = %w(Rock, Paper, Scissors)
   options.sample
 end
 
@@ -33,7 +34,7 @@ def show_computer_selection(selection)
 end
 
 
-def compare_user_and_computer_selection(user_selection, computer_selection)
+def display_who_won(user_selection, computer_selection)
   conditions = {
     "Rock": "Scissors",
     "Paper": "Rock",
@@ -44,7 +45,7 @@ def compare_user_and_computer_selection(user_selection, computer_selection)
   elsif user_selection == computer_selection
     puts "Draw!"
   else
-    puts "You lost!".sleep(2)
+    puts "You lost!"
   end
 end
 
@@ -62,10 +63,10 @@ end
 
 def main
   welcome_message
-  users_selection = ask_user_to_select_option
-  computers_selection = computer_selects_option
+  users_selection = return_user_selection
+  computers_selection = return_computer_selection
   show_computer_selection(computers_selection)
-  compare_user_and_computer_selection(users_selection, computers_selection)
+  display_who_won(users_selection, computers_selection)
   prompt_user_to_play_again
 end
 
