@@ -1,17 +1,12 @@
 def welcome_message
-  puts "Welcome to Rock, Paper, or Scissors!"
-  puts "Whichever player wins 2/3 wins."
-end
-
-
-def welcome_message_for_following_round
-  puts "\nNext round!"
+  puts "Welcome to Rock, Paper, Scissors, Spock, or Lizard!"
+  puts "When a player (you or the computer) reaches 3 wins, the program will exit."
 end
 
 
 def return_user_choice
   loop do
-    puts "Select an option: "
+    puts "\nSelect an option: "
     puts "1 = Rock"
     puts "2 = Paper"
     puts "3 = Scissors"
@@ -22,7 +17,7 @@ def return_user_choice
     
     options = {"1": "Rock", "2": "Paper", "3": "Scissors", "4": "Spock", "5": "Lizard"}
     if options.has_key?(selection)
-      puts "You selected: #{options[selection]}"
+      puts "\nYou selected: #{options[selection]}"
       return options[selection]
     else
       puts "That is not a valid option. Please enter only 1, 2, or 3."
@@ -39,6 +34,7 @@ end
 
 def show_computer_selection(selection)
   puts "The computer chose: #{selection}"
+  sleep(1.2)
 end
 
 
@@ -64,12 +60,13 @@ end
 
 def display_who_won(return_value_from_return_who_won_method)
   if return_value_from_return_who_won_method == "Player won"
-    puts "You won!"
+    puts "\nYou won!"
   elsif return_value_from_return_who_won_method == "Draw"
-    puts "Draw!"
+    puts "\nDraw!"
   else
-    puts "You lost!"
+    puts "\nYou lost!"
   end
+  sleep(1.2)
 end
 
 
@@ -84,6 +81,12 @@ def first_iteration_of_game
 end
 
 
+def welcome_message_for_following_round
+  puts "\n --- Starting up the next round ---"
+  sleep(1.2)
+end
+
+
 def following_iterations_of_game
   welcome_message_for_following_round
   users_selection = return_user_choice
@@ -95,7 +98,7 @@ def following_iterations_of_game
 end
 
 
-def play_3_times(first_score)
+def play_until_someone_wins_3_times(first_score)
   num_player_wins = 0
   num_computer_wins = 0
   num_player_wins += 1 if first_score == "Player won"
@@ -111,24 +114,31 @@ def play_3_times(first_score)
     end
     puts "Your score: #{num_player_wins}"
     puts "Computer's score: #{num_computer_wins}"
+    sleep(1)
   end
-    puts "One of the players has reached 3 wins. Goodbye!"
+    puts "One of the players has reached 3 wins."
 end
 
 
 def prompt_user_to_play_again
-  puts "Would you like to play again? Enter Y for yes and N for no."
-  user_response = gets.chomp
-  if user_response.downcase == "y"
-    main
-  else
-    puts "Goodbye!"
+  loop do
+    puts "Would you like to play again? Enter Y for yes and N for no."
+    user_response = gets.chomp
+    if user_response.downcase == "y"
+      main
+    elsif user_response.downcase == "n"
+      puts "Goodbye!"
+      break
+    else
+      puts "That is not a valid option. Please enter Y or N."
+    end
   end
 end
 
+
 def main
   first_game_results = first_iteration_of_game
-  play_3_times(first_game_results)
+  play_until_someone_wins_3_times(first_game_results)
   prompt_user_to_play_again
 end
 
