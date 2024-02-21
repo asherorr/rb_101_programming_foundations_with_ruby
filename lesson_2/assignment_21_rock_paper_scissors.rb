@@ -116,19 +116,20 @@ def play_3_times(first_score)
 end
 
 
-# def prompt_user_to_play_again
-#   puts "Would you like to play again? Enter Y for yes and N for no."
-#   user_response = gets.chomp
-#   if user_response.downcase == "y"
-#     main
-#   else
-#     puts "Goodbye!"
-#   end
-# end
+def prompt_user_to_play_again
+  puts "Would you like to play again? Enter Y for yes and N for no."
+  user_response = gets.chomp
+  if user_response.downcase == "y"
+    main
+  else
+    puts "Goodbye!"
+  end
+end
 
 def main
   first_game_results = first_iteration_of_game
   play_3_times(first_game_results)
+  prompt_user_to_play_again
 end
 
 
