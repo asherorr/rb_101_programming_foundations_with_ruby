@@ -25,8 +25,6 @@ end
 def return_user_selection(validated_user_input)
   user_input = validated_user_input.to_sym
   options = { "1": 'Rock', "2": 'Paper', "3": 'Scissors', "4": 'Spock', "5": 'Lizard' }
-  return unless options.key?(user_input)
-
   options[user_input]
 end
 
