@@ -7,13 +7,12 @@ end
 
 def ask_user_for_input_and_validate
   loop do
-    puts "\nSelect an option: "
+    puts "\nEnter a number [ex: 1 for Rock]"
     puts '1 = Rock'
     puts '2 = Paper'
     puts '3 = Scissors'
     puts '4 = Spock'
     puts '5 = Lizard'
-    puts "\nEnter a number: "
     selection = gets.chomp
     options = %w[1 2 3 4 5]
     return selection if options.include?(selection)
