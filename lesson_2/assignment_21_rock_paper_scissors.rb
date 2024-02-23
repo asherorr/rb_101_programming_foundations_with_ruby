@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-def welcome_message
+def welcome_message_for_first_round
   puts 'Welcome to Rock, Paper, Scissors, Spock, or Lizard!'
   puts 'When a player (you or the computer) reaches 3 wins, the program will exit.'
 end
 
-def return_user_choice
+def ask_user_for_input_and_validate
   loop do
     puts "\nSelect an option: "
     puts '1 = Rock'
@@ -14,19 +14,27 @@ def return_user_choice
     puts '4 = Spock'
     puts '5 = Lizard'
     puts "\nEnter a number: "
-    selection = gets.chomp.to_sym
+    selection = gets.chomp
+    options = %w[1 2 3 4 5]
+    return selection if options.include?(selection)
 
-    options = { "1": 'Rock', "2": 'Paper', "3": 'Scissors', "4": 'Spock', "5": 'Lizard' }
-    if options.key?(selection)
-      puts "\nYou selected: #{options[selection]}"
-      return options[selection]
-    else
-      puts 'That is not a valid option. Please enter only 1, 2, 3, or 5.'
-    end
+    puts 'That is not a valid input. Enter only 1, 2, 3, 4, or 5.'
   end
 end
 
-def return_computer_choice
+def return_user_selection(validated_user_input)
+  user_input = validated_user_input.to_sym
+  options = { "1": 'Rock', "2": 'Paper', "3": 'Scissors', "4": 'Spock', "5": 'Lizard' }
+  return unless options.key?(user_input)
+
+  options[user_input]
+end
+
+def show_user_selection(option_user_selected)
+  puts "You selected: #{option_user_selected}"
+end
+
+def return_computer_selection
   options = %w[Rock Paper Scissors Lizard Spock]
   options.sample
 end
@@ -66,14 +74,22 @@ def display_who_won(return_value_from_return_who_won_method)
   sleep(1.2)
 end
 
-def first_iteration_of_game
-  welcome_message
-  users_selection = return_user_choice
-  computers_selection = return_computer_choice
-  show_computer_selection(computers_selection)
-  player_who_won = return_who_won(users_selection, computers_selection)
+def play_game
+  validated_user_input = ask_user_for_input_and_validate
+  user_selection = return_user_selection(validated_user_input)
+  show_user_selection(user_selection)
+
+  computer_selection = return_computer_selection
+  show_computer_selection(computer_selection)
+
+  player_who_won = return_who_won(user_selection, computer_selection)
   display_who_won(player_who_won)
   player_who_won
+end
+
+def play_game_for_first_time
+  welcome_message_for_first_round
+  play_game
 end
 
 def welcome_message_for_following_round
@@ -81,38 +97,34 @@ def welcome_message_for_following_round
   sleep(1.2)
 end
 
-def following_iterations_of_game
+def play_game_for_all_rounds_after_round1
   welcome_message_for_following_round
-  users_selection = return_user_choice
-  computers_selection = return_computer_choice
-  show_computer_selection(computers_selection)
-  player_who_won = return_who_won(users_selection, computers_selection)
-  display_who_won(player_who_won)
-  player_who_won
+  play_game
 end
 
-def play_until_someone_wins_3_times(first_score)
+def show_player_score(number_player_wins, number_computer_wins)
+  puts "Your score: #{number_player_wins}"
+  puts "Computer's score: #{number_computer_wins}"
+end
+
+def play_until_someone_wins_3_times
   num_player_wins = 0
   num_computer_wins = 0
-  num_player_wins += 1 if first_score == 'Player won'
-  num_computer_wins += 1 if first_score == 'Computer won'
+  score = play_game_for_first_time
+  num_player_wins += 1 if score == 'Player won'
+  num_computer_wins += 1 if score == 'Computer won'
+  show_player_score(num_player_wins, num_computer_wins)
+
   while num_player_wins < 3 && num_computer_wins < 3
-    following_games = following_iterations_of_game
-    if following_games == 'Player won'
-      num_player_wins += 1
-    elsif following_games == 'Computer won'
-      num_computer_wins += 1
-    else
-      num_player_wins += 0
-    end
-    puts "Your score: #{num_player_wins}"
-    puts "Computer's score: #{num_computer_wins}"
-    sleep(1)
+    new_score = play_game_for_all_rounds_after_round1
+    num_player_wins += 1 if new_score == 'Player won'
+    num_computer_wins += 1 if new_score == 'Computer won'
+    show_player_score(num_player_wins, num_computer_wins)
   end
-  puts 'One of the players has reached 3 wins.'
 end
 
 def prompt_user_to_play_again
+  puts 'One of the players has reached 3 wins.'
   loop do
     puts 'Would you like to play again? Enter Y for yes and N for no.'
     user_response = gets.chomp
@@ -128,8 +140,7 @@ def prompt_user_to_play_again
 end
 
 def main
-  first_game_results = first_iteration_of_game
-  play_until_someone_wins_3_times(first_game_results)
+  play_until_someone_wins_3_times
   prompt_user_to_play_again
 end
 
