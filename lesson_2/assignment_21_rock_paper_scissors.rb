@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+RULES_OF_RPS = {
+    "Rock": %w[Scissors Lizard],
+    "Paper": %w[Rock Spock],
+    "Scissors": %w[Paper Lizard],
+    "Spock": %w[Scissors Rock],
+    "Lizard": %w[Spock Paper]
+  }
+  
 def welcome_message_for_first_round
   puts 'Welcome to Rock, Paper, Scissors, Spock, or Lizard!'
   puts 'When a player (you or the computer) reaches 3 wins, the program will exit.'
@@ -42,16 +50,8 @@ def show_computer_selection(selection)
 end
 
 def return_who_won(user_selection, computer_selection)
-  conditions = {
-    "Rock": %w[Scissors Lizard],
-    "Paper": %w[Rock Spock],
-    "Scissors": %w[Paper Lizard],
-    "Spock": %w[Scissors Rock],
-    "Lizard": %w[Spock Paper]
-  }
-  user_selection.to_sym
-  array_obj = conditions[user_selection.to_sym]
-  if array_obj.include?(computer_selection)
+  losing_moves = RULES_OF_RPS[user_selection.to_sym]
+  if losing_moves.include?(computer_selection)
     'Player won'
   elsif user_selection == computer_selection
     'Draw'
