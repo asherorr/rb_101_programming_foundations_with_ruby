@@ -8,6 +8,10 @@ RULES_OF_RPS = {
     "Lizard": %w[Spock Paper]
   }
   
+MOVES_AVAILABLE = %w[Rock Paper Scissors Lizard Spock]
+
+NUM_GAMES_TO_WIN = 3
+  
 def welcome_message_for_first_round
   puts 'Welcome to Rock, Paper, Scissors, Spock, or Lizard!'
   puts 'When a player (you or the computer) reaches 3 wins, the program will exit.'
@@ -29,7 +33,7 @@ def ask_user_for_input_and_validate
   end
 end
 
-def return_user_selection(validated_user_input)
+def user_selection(validated_user_input)
   user_input = validated_user_input.to_sym
   options = { "1": 'Rock', "2": 'Paper', "3": 'Scissors', "4": 'Spock', "5": 'Lizard' }
   options[user_input]
@@ -39,9 +43,8 @@ def show_user_selection(option_user_selected)
   puts "You selected: #{option_user_selected}"
 end
 
-def return_computer_selection
-  options = %w[Rock Paper Scissors Lizard Spock]
-  options.sample
+def computer_selection
+  MOVES_AVAILABLE.sample
 end
 
 def show_computer_selection(selection)
@@ -73,30 +76,20 @@ end
 
 def play_game
   validated_user_input = ask_user_for_input_and_validate
-  user_selection = return_user_selection(validated_user_input)
-  show_user_selection(user_selection)
+  user_move = user_selection(validated_user_input)
+  show_user_selection(user_move)
 
-  computer_selection = return_computer_selection
+  computer_move = computer_selection
   show_computer_selection(computer_selection)
 
-  player_who_won = return_who_won(user_selection, computer_selection)
+  player_who_won = return_who_won(user_move, computer_move)
   display_who_won(player_who_won)
   player_who_won
-end
-
-def play_game_for_first_time
-  welcome_message_for_first_round
-  play_game
 end
 
 def welcome_message_for_following_round
   puts "\n --- Starting up the next round ---"
   sleep(1.2)
-end
-
-def play_game_for_all_rounds_after_round1
-  welcome_message_for_following_round
-  play_game
 end
 
 def show_player_score(number_player_wins, number_computer_wins)
@@ -105,17 +98,18 @@ def show_player_score(number_player_wins, number_computer_wins)
 end
 
 def play_until_someone_wins_3_times
+  rounds = 0
   num_player_wins = 0
   num_computer_wins = 0
-  score = play_game_for_first_time
-  num_player_wins += 1 if score == 'Player won'
-  num_computer_wins += 1 if score == 'Computer won'
-  show_player_score(num_player_wins, num_computer_wins)
-
   while num_player_wins < 3 && num_computer_wins < 3
-    new_score = play_game_for_all_rounds_after_round1
-    num_player_wins += 1 if new_score == 'Player won'
-    num_computer_wins += 1 if new_score == 'Computer won'
+    if rounds == 0
+      welcome_message_for_first_round
+    else
+      welcome_message_for_following_round
+    end
+    score = play_game
+    num_player_wins += 1 if score == 'Player won'
+    num_computer_wins += 1 if score == 'Computer won'
     show_player_score(num_player_wins, num_computer_wins)
   end
 end
