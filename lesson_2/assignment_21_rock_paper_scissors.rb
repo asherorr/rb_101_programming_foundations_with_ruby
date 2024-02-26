@@ -49,8 +49,8 @@ def return_who_won(user_selection, computer_selection)
     "Spock": %w[Scissors Rock],
     "Lizard": %w[Spock Paper]
   }
-  user_selection_to_sym = user_selection.to_sym
-  array_obj = conditions[user_selection_to_sym]
+  user_selection.to_sym
+  array_obj = conditions[user_selection.to_sym]
   if array_obj.include?(computer_selection)
     'Player won'
   elsif user_selection == computer_selection
