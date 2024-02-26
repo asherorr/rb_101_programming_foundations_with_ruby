@@ -7,7 +7,7 @@ RULES_OF_RPS = {
     "Spock": %w[Scissors Rock],
     "Lizard": %w[Spock Paper]
   }
-  
+
 MOVES_AVAILABLE = %w[Rock Paper Scissors Lizard Spock]
 
 NUM_GAMES_TO_WIN = 3
@@ -54,10 +54,10 @@ end
 
 def return_who_won(user_selection, computer_selection)
   losing_moves = RULES_OF_RPS[user_selection.to_sym]
-  if losing_moves.include?(computer_selection)
-    'Player won'
-  elsif user_selection == computer_selection
+  if user_selection == computer_selection
     'Draw'
+  elsif losing_moves.include?(computer_selection)
+    'Player won'
   else
     'Computer won'
   end
