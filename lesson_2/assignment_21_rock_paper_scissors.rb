@@ -120,13 +120,13 @@ def play_until_someone_wins_3_times
   end
 end
 
-def prompt_user_to_play_again
+def play_again
   puts 'One of the players has reached 3 wins.'
   loop do
     puts 'Would you like to play again? Enter Y for yes and N for no.'
     user_response = gets.chomp
     if user_response.downcase == 'y'
-      main
+      play_until_someone_wins_3_times
     elsif user_response.downcase == 'n'
       puts 'Goodbye!'
       break
@@ -138,7 +138,7 @@ end
 
 def main
   play_until_someone_wins_3_times
-  prompt_user_to_play_again
+  play_again
 end
 
 main
